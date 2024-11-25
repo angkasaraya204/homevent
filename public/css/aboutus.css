@@ -1,0 +1,50 @@
+/* styles.css */
+
+.home-event {
+    text-align: center;
+    top: 55px;
+    color: #091F5B;
+    font-size: 180px;
+    font-family: Inter, sans-serif;
+    font-style: italic;
+    font-weight: 800;
+}
+
+.about-us {
+    left: 66px;
+    top: 290px;
+    position: absolute;
+    color: #091F5B;
+    font-size: 36px;
+    font-family: Poppins, sans-serif;
+    font-weight: 700;
+}
+
+.our-logo {
+    left: 690px;
+    top: 700px;
+    position: absolute;
+    color: #091F5B;
+    font-size: 36px;
+    font-family: Poppins, sans-serif;
+    font-weight: 700;
+}
+
+.home-event-description {
+    left: 66px;
+    top: 344px;
+    position: absolute;
+    color: #091F5B;
+    font-size: 36px;
+    font-family: Roboto, sans-serif;
+    font-weight: 400;
+}
+
+.image {
+    width: 580px;
+    height: 580px;
+    left: 485px;
+    top: 800px;
+    position: absolute;
+    border-radius: 25px;
+}
