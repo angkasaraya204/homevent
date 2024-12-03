@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('artikel', function (Blueprint $table) {
             $table->id();
             $table->string('judul');
+            $table->foreignId('kategori_id')->constrained('kategori')->onDelete('cascade')->onUpdate('cascade'); // Menambahkan kolom kategori_id
             $table->string('gambar')->nullable();
             $table->string('tanggal');
             $table->string('penulis');

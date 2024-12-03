@@ -14,6 +14,8 @@
         <div class="dropdown">
             <button class="dropdown-toggle">▼</button>
             <div class="dropdown-menu">
+                <a href="{{ route('tamu.index') }}" class="dropdown-item">Dashboard</a>
+                </form>
                 <a href="{{ route('logout') }}" class="dropdown-item">Logout</a>
                 </form>
             </div>

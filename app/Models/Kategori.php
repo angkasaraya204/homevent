@@ -11,4 +11,9 @@ class Kategori extends Model
         'nama',
         'gambar'
     ];
+
+    public function artikels()
+    {
+        return $this->hasMany(Artikel::class);
+    }
 }

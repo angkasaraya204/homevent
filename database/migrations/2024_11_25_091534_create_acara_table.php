@@ -14,11 +14,13 @@ return new class extends Migration
         Schema::create('acara', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
+            $table->string('gambar')->nullable();
             $table->string('tanggal');
             $table->string('genre');
             $table->string('link');
             $table->string('tempat');
             $table->string('deskripsi');
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

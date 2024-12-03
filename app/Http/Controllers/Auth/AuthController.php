@@ -35,9 +35,9 @@ class AuthController extends Controller
         } else {
             Auth::login($user, false);
             // Cek role pengguna dan redirect ke dashboard yang sesuai
-            if ($user->role == 'admin') {
+            if ($user->role === 'admin') {
                 return redirect()->route('admin.index');
-            } elseif ($user->role == 'tamu') {
+            } elseif ($user->role === 'tamu') {
                 return redirect()->route('index');
             } else {
                 return redirect()->route('login'); // Redirect ke halaman utama jika role tidak dikenali

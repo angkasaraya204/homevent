@@ -16,7 +16,7 @@
                 <h4>Edit Acara</h4>
             </div>
             <div class="card-body">
-                <form method="post" action="">
+                <form action="{{ route('tamu.acara.update', $acara->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('put')
                     <div class="card-body">
@@ -24,6 +24,15 @@
                             <label for="nama">Nama</label>
                             <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" placeholder="Masukan Nama" value="{{ $acara->nama }}">
                             @error('nama')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="gambar">Gambar</label>
+                            <input type="file" class="form-control @error('gambar') is-invalid @enderror" name="gambar" value="{{ $acara->gambar }}">
+                            @error('gambar')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>

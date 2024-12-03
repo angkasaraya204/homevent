@@ -12,8 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/fontawesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=bookmark" />
 </head>
 
 <body>
@@ -26,7 +25,7 @@
     <section class="category">
         <div class="container">
             <div class="title title-acara">Acara</div>
-            <div class=" title title-category">Category</div>
+            <div class="title title-category">Category</div>
             <div class="flex-container">
                 @foreach ($acara as $acr)
                     @if ($acr->status == 'approved')
@@ -40,11 +39,9 @@
                                 <form action="{{ route('bookmark.tambah', ['acaraId' => $acr->id]) }}" method="POST" style="display:inline;">
                                     @csrf
                                     <button type="submit" style="border: none; background: none; cursor: pointer;">
-                                        @if ($isBookmarked)
-                                            <i class="fa-solid fa-bookmark" style="color: white; font-size: 150%;"></i> <!-- Ikon solid jika sudah dibookmark -->
-                                        @else
-                                            <i class="fa-regular fa-bookmark" style="color: white; font-size: 150%;"></i> <!-- Ikon regular jika belum dibookmark -->
-                                        @endif
+                                        <span class="material-symbols-outlined" style="color: {{ $isBookmarked ? 'black' : 'white' }};">
+                                            bookmark
+                                        </span>
                                     </button>
                                 </form>
                                 @endif
@@ -58,14 +55,24 @@
                 @endforeach
             </div>
             <div class="image-container">
-                @foreach ($kategori as $kat)
-                <a href="{{ route('artikel.kategori', $kat->id) }}">
-                    <div class="image-card">
-                        <img class="image" src="{{ asset('img/'. $kat->gambar) }}" alt="Rock">
-                            <div class="image-title">{{ $kat->nama }}</div>
-                    </div>
-                </a>
-                @endforeach
+                @if($artikels->isEmpty())
+                    <h1>Tidak ada artikel untuk kategori ini.</h1>
+                @else
+                    <ul>
+                        @foreach($artikels as $artikel)
+                            <li>
+                                <img src="{{ asset('img/'. $artikel->gambar) }}" style="width: 50%;">
+                                <p>Kategori: {{ $artikel->kategori->nama }}</p>
+                                <a href="{{ route('artikel.detail', $artikel->id) }}">
+                                    <h1>{{ $artikel->judul }}</h1>
+                                </a>
+                                <p>Deskripsi: {!! Str::limit($artikel->konten, 100) !!}</p>
+                                <p>Penulis: {{ $artikel->penulis }}</p>
+                                <p>Tanggal: {{ $artikel->tanggal }}</p>
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
             </div>
         </div>
     </section>

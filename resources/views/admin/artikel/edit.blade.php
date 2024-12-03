@@ -32,6 +32,24 @@
                             @enderror
                         </div>
                         <div class="form-group row mb-4">
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3" for="kategori">Kategori</label>
+                            <div class="col-sm-12 col-md-7">
+                                <select name="kategori_id" class="form-control @error('kategori_id') is-invalid @enderror">
+                                    <option>Pilih Kategori</option>
+                                    @foreach($kategoris as $kategori)
+                                        <option value="{{ $kategori->id }}" {{ $artikel->kategori_id == $kategori->id ? 'selected' : '' }}>
+                                            {{ $kategori->nama }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            @error('kategori_id')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3" for="gambar">Gambar</label>
                             <div class="col-sm-12 col-md-7">
                                 <input type="file" class="form-control @error('gambar') is-invalid @enderror" name="gambar">

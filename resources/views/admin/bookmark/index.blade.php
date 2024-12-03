@@ -1,11 +1,11 @@
 @extends('layouts.admin.master')
-@section('title', 'Artikel')
+@section('title', 'Bookmark')
 @section('content')
 <section class="section">
     <div class="section-header">
         <div class="section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-            <div class="breadcrumb-item"><a href="#">Artikel</a></div>
+            <div class="breadcrumb-item"><a href="#">Bookmark</a></div>
         </div>
     </div>
 
@@ -22,46 +22,28 @@
         @endif
         <div class="card">
             <div class="card-header">
-                <h4>Data Artikel</h4>
+                <h4>Data Acara</h4>
             </div>
             <div class="card-body">
-                <a href="{{ route('admin.artikel.tambah') }}" class="btn btn-icon icon-left btn-primary"><i
-                    class="far fa-edit"></i> Tambah</a>
                 <div class="table-responsive">
-                    <table class="table table-bordered table-md text-center">
+                    <table class="table table-bordered table-md">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Judul</th>
-                                <th>Kategori</th>
-                                <th>Gambar</th>
-                                <th>Tanggal</th>
-                                <th>Penulis</th>
-                                <th>Konten</th>
+                                <th>Nama</th>
+                                <th>Acara</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($artikel as $key => $art)
+                            @foreach ($bookmarks as $key => $book)
                             <tr>
-                                <td>{{ $key + 1 + ($artikel->currentPage() - 1) * $artikel->perPage() }}</td>
-                                <td>{{ $art->judul }}</td>
-                                <td>{{ $art->kategori->nama }}</td>
-                                <td>
-                                    <figure class="avatar mr-2 avatar-xl">
-                                        <img src="{{ asset('img/' . $art->gambar) }}">
-                                    </figure>
-                                </td>
-                                <td>{{ $art->tanggal }}</td>
-                                <td>{{ $art->penulis }}</td>
-                                <td>{!! $art->konten !!}</td>
+                                <td>{{ $key + 1 + ($bookmarks->currentPage() - 1) * $bookmarks->perPage() }}</td>
+                                <td>{{ $book->user->name }}</td>
+                                <td>{{ $book->acara->nama }}</td>
                                 <td>
                                     <div class="buttons">
-                                        <a href="{{ route('admin.artikel.edit', $art->id) }}"
-                                            class="btn btn-icon btn-primary">
-                                            <i class="far fa-edit"></i>
-                                        </a>
-                                        <form action="{{ route('admin.artikel.hapus', $art->id) }}" method="POST"
+                                        <form action="{{ route('tamu.bookmark.hapus', $book->id) }}" method="POST"
                                             style="display:inline;">
                                             @csrf
                                             @method('DELETE')
@@ -79,7 +61,7 @@
                 </div>
             </div>
             <div class="d-flex justify-content-end">
-                {{ $artikel->links('vendor.pagination.bootstrap-4') }}
+                {{ $bookmarks->links('vendor.pagination.bootstrap-4') }}
                 <!-- Menggunakan tampilan pagination yang telah dibuat -->
             </div>
         </div>

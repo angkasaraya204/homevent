@@ -39,7 +39,11 @@
                             @foreach ($tentang as $key => $tnt)
                             <tr>
                                 <td>{{ $key + 1 }}</td>
-                                <td>{{ $tnt->logo }}</td>
+                                <td>
+                                    <figure class="avatar mr-2 avatar-xl">
+                                        <img src="{{ asset('img/' . $tnt->logo) }}">
+                                    </figure>
+                                </td>
                                 <td>{{ $tnt->deskripsi }}</td>
                                 <td>
                                     <a href="{{ route('admin.editabout', $tnt->id) }}" class="btn btn-icon btn-primary"><i class="far fa-edit"></i></a>

@@ -25,21 +25,22 @@
                 <h4>Data Acara</h4>
             </div>
             <div class="card-body">
-                <div class="buttons">
-                    <a href="{{ route('admin.acara.tambah') }}" class="btn btn-icon icon-left btn-primary"><i class="far fa-edit"></i> Tambah</a>
-                    <a href="#" class="btn btn-icon icon-left btn-primary"><i class="far fa-edit"></i> Ekspor</a>
-                </div>
+                @if(Auth::user()->role === 'tamu')
+                <a href="{{ route('tamu.acara.tambah') }}" class="btn btn-icon icon-left btn-primary"><i class="far fa-edit"></i> Tambah</a>
+                @endif
                 <div class="table-responsive">
                     <table class="table table-bordered table-md">
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>Nama</th>
+                                <th>Gambar</th>
                                 <th>Tanggal</th>
                                 <th>Genre</th>
                                 <th>Link Kredensial</th>
                                 <th>Tempat Acara</th>
                                 <th>Deskripsi</th>
+                                <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -48,18 +49,27 @@
                             <tr>
                                 <td>{{ $key + 1 + ($acara->currentPage() - 1) * $acara->perPage() }}</td>
                                 <td>{{ $acr->nama }}</td>
+                                <td>
+                                    <figure class="avatar mr-2 avatar-xl">
+                                        <img src="{{ asset('img/' . $acr->gambar) }}">
+                                    </figure>
+                                </td>
                                 <td>{{ $acr->tanggal }}</td>
                                 <td>{{ $acr->genre }}</td>
                                 <td>{{ $acr->link }}</td>
                                 <td>{{ $acr->tempat }}</td>
                                 <td>{{ $acr->deskripsi }}</td>
+                                @if(Auth::user()->role === 'admin')
+                                <td>{{ $acr->status }}</td>
+                                @endif
+                                @if(Auth::user()->role === 'tamu')
                                 <td>
                                     <div class="buttons">
-                                        <a href="{{ route('admin.acara.edit', $acr->id) }}"
+                                        <a href="{{ route('tamu.acara.edit', $acr->id) }}"
                                             class="btn btn-icon btn-primary">
                                             <i class="far fa-edit"></i>
                                         </a>
-                                        <form action="{{ route('admin.acara.hapus', $acr->id) }}" method="POST"
+                                        <form action="{{ route('tamu.acara.hapus', $acr->id) }}" method="POST"
                                             style="display:inline;">
                                             @csrf
                                             @method('DELETE')
@@ -70,6 +80,23 @@
                                         </form>
                                     </div>
                                 </td>
+                                @endif
+                                @if(Auth::user()->role === 'admin')
+                                <td>
+                                    <form action="{{ route('status.approve', $acr->id) }}" method="post">
+                                        @csrf
+                                        <button type="submit" class="btn btn-primary btn-icon icon-left">
+                                            <i class="fa fa-check"></i> Terima
+                                        </button>
+                                    </form>
+                                    <form action="{{ route('status.reject', $acr->id) }}" method="post">
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger btn-icon icon-left">
+                                            <i class="fa fa-times"></i> Tolak
+                                        </button>
+                                    </form>
+                                </td>
+                                @endif
                             </tr>
                             @endforeach
                         </tbody>

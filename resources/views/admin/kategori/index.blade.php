@@ -25,11 +25,7 @@
                 <h4>Data Kategori</h4>
             </div>
             <div class="card-body">
-                <div class="buttons">
-                    <a href="{{ route('admin.kategori.tambah') }}" class="btn btn-icon icon-left btn-primary"><i
-                            class="far fa-edit"></i> Tambah</a>
-                    <a href="#" class="btn btn-icon icon-left btn-primary"><i class="far fa-edit"></i> Ekspor</a>
-                </div>
+                <a href="{{ route('admin.kategori.tambah') }}" class="btn btn-icon icon-left btn-primary"><i class="far fa-edit"></i> Tambah</a>
                 <div class="table-responsive">
                     <table class="table table-bordered table-md text-center">
                         <thead>
@@ -46,12 +42,9 @@
                                     <td>{{ $key + 1 + ($kategori->currentPage() - 1) * $kategori->perPage() }}</td>
                                     <td>{{ $kat->nama }}</td>
                                     <td>
-                                        <article class="article article-style-c">
-                                            <div class="article-header">
-                                                <div class="article-image" data-background="{{ asset('img/' . $kat->gambar) }}">
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <figure class="avatar mr-2 avatar-xl">
+                                            <img src="{{ asset('img/' . $kat->gambar) }}">
+                                        </figure>
                                     </td>
                                     <td>
                                         <div class="buttons">

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 25 Nov 2024 pada 11.10
+-- Waktu pembuatan: 03 Des 2024 pada 11.52
 -- Versi server: 8.0.30
 -- Versi PHP: 8.3.12
 
@@ -30,22 +30,16 @@ SET time_zone = "+00:00";
 CREATE TABLE `acara` (
   `id` bigint UNSIGNED NOT NULL,
   `nama` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `gambar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `tanggal` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `genre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `link` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tempat` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `deskripsi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data untuk tabel `acara`
---
-
-INSERT INTO `acara` (`id`, `nama`, `tanggal`, `genre`, `link`, `tempat`, `deskripsi`, `created_at`, `updated_at`) VALUES
-(1, 'AKy We', '2024-11-25', 'J-Pop', 'test.com', 'Talidare Cafe, Bekasi', '18.00 - selesai', '2024-11-25 02:47:41', '2024-11-25 02:47:41'),
-(2, 'safsdfdh', '2024-11-25', 'dfhdfh', 'fhdfhdfhdd', 'dfhdfh', 'dfhdfh', '2024-11-25 03:50:17', '2024-11-25 03:50:17');
 
 -- --------------------------------------------------------
 
@@ -56,6 +50,7 @@ INSERT INTO `acara` (`id`, `nama`, `tanggal`, `genre`, `link`, `tempat`, `deskri
 CREATE TABLE `artikel` (
   `id` bigint UNSIGNED NOT NULL,
   `judul` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `kategori_id` bigint UNSIGNED NOT NULL,
   `gambar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `tanggal` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `penulis` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -64,12 +59,19 @@ CREATE TABLE `artikel` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data untuk tabel `artikel`
+-- Struktur dari tabel `bookmark`
 --
 
-INSERT INTO `artikel` (`id`, `judul`, `gambar`, `tanggal`, `penulis`, `konten`, `created_at`, `updated_at`) VALUES
-(1, '5 Videoklip K-Pop terbaru yang  sangat digemari', NULL, '2024-11-25', 'Kazutora', '<p>Kazutora</p>', '2024-11-25 04:09:33', '2024-11-25 04:09:33');
+CREATE TABLE `bookmark` (
+  `id` bigint UNSIGNED NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `acara_id` bigint UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -165,11 +167,11 @@ CREATE TABLE `kategori` (
 --
 
 INSERT INTO `kategori` (`id`, `nama`, `gambar`, `created_at`, `updated_at`) VALUES
-(1, 'Rock', NULL, '2024-11-25 02:44:57', '2024-11-25 02:44:57'),
-(2, 'K-Pop', NULL, '2024-11-25 02:44:57', '2024-11-25 02:44:57'),
-(3, 'Koplo', NULL, '2024-11-25 02:44:57', '2024-11-25 02:44:57'),
-(4, 'Cosplay', NULL, '2024-11-25 02:44:57', '2024-11-25 02:44:57'),
-(5, 'J-Pop', NULL, '2024-11-25 02:44:57', '2024-11-25 02:44:57');
+(1, 'Rock', NULL, '2024-12-03 04:51:53', '2024-12-03 04:51:53'),
+(2, 'K-Pop', NULL, '2024-12-03 04:51:53', '2024-12-03 04:51:53'),
+(3, 'Koplo', NULL, '2024-12-03 04:51:53', '2024-12-03 04:51:53'),
+(4, 'Cosplay', NULL, '2024-12-03 04:51:53', '2024-12-03 04:51:53'),
+(5, 'J-Pop', NULL, '2024-12-03 04:51:53', '2024-12-03 04:51:53');
 
 -- --------------------------------------------------------
 
@@ -194,7 +196,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (4, '2024_11_25_040747_create_kategori_table', 1),
 (5, '2024_11_25_055442_create_artikel_table', 1),
 (6, '2024_11_25_081603_create_tentangkami_table', 1),
-(7, '2024_11_25_091534_create_acara_table', 1);
+(7, '2024_11_25_091534_create_acara_table', 1),
+(8, '2024_12_03_050349_create_bookmark_table', 1);
 
 -- --------------------------------------------------------
 
@@ -228,8 +231,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('6MRMsajDV0ZXk7Z7hF0tjGvuNZxM72RhEN90T36P', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiNEFianRRdktkV0hMOTVReEJNMTJyd096d1NIZ3M4ekR6YmViT1FCTyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDE6Imh0dHA6Ly9ob21lLWV2ZW50LnRlc3QvYWRtaW4vYWNhcmEvdGFtYmFoIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6Mjt9', 1732532990),
-('MubJgdmSdI0bIv0OZSe5lThmdoImsChDszTfAbLF', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiajNYYVI5UXdQRnRFbGFOSXJJTlN5dmlxTzdwYVJwamNESkJyRVBlbyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9wYncta2VsLTIudGVzdCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6MzU6Imh0dHA6Ly9wYncta2VsLTIudGVzdC9hZG1pbi9hcnRpa2VsIjt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6Mjt9', 1732528325);
+('U2O6JT8UllsdJnf3pwx7qvt3HGdgoqrbAsO1zih2', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiQXdVcjlzR0VtYUpZeWhJT1haV1hqY2tQTkhYaWVYdEN2NmI4NEVRVSI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czoyODoiaHR0cDovL2hvbWUtZXZlbnQudGVzdC9hY2FyYSI7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjI4OiJodHRwOi8vaG9tZS1ldmVudC50ZXN0L2xvZ2luIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1733226716);
 
 -- --------------------------------------------------------
 
@@ -250,7 +252,7 @@ CREATE TABLE `tentangkami` (
 --
 
 INSERT INTO `tentangkami` (`id`, `logo`, `deskripsi`, `created_at`, `updated_at`) VALUES
-(1, NULL, 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio inventore possimus repudiandae. Assumenda officia eum optio nesciunt eligendi quae quia provident, accusantium vel, odit reprehenderit repudiandae, ratione aut impedit natus.', '2024-11-25 02:44:57', '2024-11-25 02:44:57');
+(1, NULL, 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio inventore possimus repudiandae. Assumenda officia eum optio nesciunt eligendi quae quia provident, accusantium vel, odit reprehenderit repudiandae, ratione aut impedit natus.', '2024-12-03 04:51:53', '2024-12-03 04:51:53');
 
 -- --------------------------------------------------------
 
@@ -275,8 +277,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Test User', 'test@gmail.com', '2024-11-25 02:44:56', '$2y$12$wbVX3N3Mr71b5fLZT1AvOuChi8sLmXdOJLVnyMZY1Wg82llce4gWC', 'tamu', 'EVMM3kWhg1', '2024-11-25 02:44:56', '2024-11-25 02:44:56'),
-(2, 'Admin', 'admin@gmail.com', '2024-11-25 02:44:57', '$2y$12$i7rxlUsFiLZy9tVa6Uuyh.zxFuOHKqOIdWFdQFjh3LTwk5RPB/2Va', 'admin', 'cg8hI7jp4fqnYhTT31BSmZWFnQpRKCwaCKlYZUHKiqgXDftg6MF3HNnXJQjC', '2024-11-25 02:44:57', '2024-11-25 02:44:57');
+(1, 'Test User', 'test@gmail.com', '2024-12-03 04:51:52', '$2y$12$dqGEySe9zT3OPzhs34w8hed/6GNPFj4IzwTXTApXqbO3PteoCDw4.', 'tamu', 'KvNUln8SIL', '2024-12-03 04:51:53', '2024-12-03 04:51:53'),
+(2, 'Admin', 'admin@gmail.com', '2024-12-03 04:51:53', '$2y$12$7j7crf4VuqjrU8cuq4zfTezMUwFkRG3fmtha0qPgLq5k5sKu//3YO', 'admin', 'jPlW2t3vLA', '2024-12-03 04:51:53', '2024-12-03 04:51:53');
 
 --
 -- Indexes for dumped tables
@@ -292,7 +294,16 @@ ALTER TABLE `acara`
 -- Indeks untuk tabel `artikel`
 --
 ALTER TABLE `artikel`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `artikel_kategori_id_foreign` (`kategori_id`);
+
+--
+-- Indeks untuk tabel `bookmark`
+--
+ALTER TABLE `bookmark`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `bookmark_user_id_foreign` (`user_id`),
+  ADD KEY `bookmark_acara_id_foreign` (`acara_id`);
 
 --
 -- Indeks untuk tabel `cache`
@@ -373,13 +384,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `acara`
 --
 ALTER TABLE `acara`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `artikel`
 --
 ALTER TABLE `artikel`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `bookmark`
+--
+ALTER TABLE `bookmark`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `failed_jobs`
@@ -403,7 +420,7 @@ ALTER TABLE `kategori`
 -- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `tentangkami`
@@ -416,6 +433,23 @@ ALTER TABLE `tentangkami`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+--
+
+--
+-- Ketidakleluasaan untuk tabel `artikel`
+--
+ALTER TABLE `artikel`
+  ADD CONSTRAINT `artikel_kategori_id_foreign` FOREIGN KEY (`kategori_id`) REFERENCES `kategori` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `bookmark`
+--
+ALTER TABLE `bookmark`
+  ADD CONSTRAINT `bookmark_acara_id_foreign` FOREIGN KEY (`acara_id`) REFERENCES `acara` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `bookmark_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

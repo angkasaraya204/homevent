@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Artikel;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\Storage;
 
@@ -13,7 +14,7 @@ class ArtikelController extends Controller
      */
     public function index()
     {
-        $artikel = Artikel::paginate(10);
+        $artikel = Artikel::with('kategori')->paginate(10);
         return view('admin.artikel.index', compact('artikel'));
     }
 
@@ -22,7 +23,8 @@ class ArtikelController extends Controller
      */
     public function create()
     {
-        return view('admin.artikel.create');
+        $kategoris = Kategori::all();
+        return view('admin.artikel.create', compact('kategoris'));
     }
 
     /**
@@ -33,6 +35,7 @@ class ArtikelController extends Controller
         // Validate the request
         $request->validate([
             'judul' => 'required',
+            'kategori_id' => 'required',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'tanggal' => 'required|date',
             'penulis' => 'required',
@@ -50,6 +53,7 @@ class ArtikelController extends Controller
         // Create a new event
         Artikel::create([
             'judul' => $request->judul,
+            'kategori_id' => $request->kategori_id,
             'gambar' => $imageName,
             'tanggal' => $request->tanggal,
             'penulis' => $request->penulis,
@@ -73,7 +77,8 @@ class ArtikelController extends Controller
     public function edit(string $id)
     {
         $artikel = Artikel::findOrFail($id);
-        return view('admin.artikel.edit', compact('artikel'));
+        $kategoris = Kategori::all();
+        return view('admin.artikel.edit', compact('artikel','kategoris'));
     }
 
     /**
@@ -84,6 +89,7 @@ class ArtikelController extends Controller
         // Validasi permintaan
         $request->validate([
             'judul' => 'required',
+            'kategori_id' => 'required',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'tanggal' => 'required|date',
             'penulis' => 'required',
@@ -112,6 +118,7 @@ class ArtikelController extends Controller
         // Perbarui artikel
         $artikel->update([
             'judul' => $request->judul,
+            'kategori_id' => $request->kategori_id,
             'gambar' => $imageName,
             'tanggal' => $request->tanggal,
             'penulis' => $request->penulis,

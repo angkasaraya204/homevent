@@ -9,10 +9,17 @@ class Acara extends Model
     protected $table = 'acara';
     protected $fillable = [
         'nama',
+        'gambar',
         'tanggal',
         'genre',
         'link',
         'tempat',
-        'deskripsi'
+        'deskripsi',
+        'status'
     ];
+
+    public function bookmarks()
+    {
+        return $this->hasMany(Bookmark::class);
+    }
 }
