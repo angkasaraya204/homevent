@@ -4,41 +4,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@yield('title')</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/category.css') }}">
-    <!-- fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=bookmark" />
+    <title>Kategori</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <!-- Header with Centered Navigation -->
-    <header class="header">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-transparent text-center">
         @include('partials.navbar')
-    </header>
+    </nav>
 
-    <!-- Hero Section -->
-    <section class="category">
-        <div class="container">
-            <div class="image-container">
-                <li>
-                    <img src="{{ asset('img/'. $artikel->gambar) }}" style="width: 50%;">
-                    <h1>{{ $artikel->judul }}</h1>
-                    <p>Penulis: {{ $artikel->penulis }}</p>
-                    <p>Tanggal: {{ $artikel->tanggal }}</p>
-                    <p>Kategori: {{ $artikel->kategori->nama }}</p>
-                    <p>Deskripsi: {!! $artikel->konten !!}</p>
-                </li>
+    <!-- Content -->
+    <div class="container py-4">
+        <h1 class="fs-3 fw-bold">{{ $artikel->judul }}</h1>
+        <p class="text-muted">
+            Ditulis Oleh: <span class="fw-bold">{{ $artikel->penulis }}</span> – {{ $artikel->tanggal }}
+            <span class="badge bg-primary">{{ $artikel->kategori->nama }}</span>
+        </p>
+
+        <!-- Image and Text Side-by-Side -->
+        <div class="row g-4 align-items-start">
+            <!-- Image Section -->
+            <div class="col-md-4">
+                <img src="{{ asset('img/'. $artikel->gambar) }}" class="img-fluid rounded shadow-sm" alt="{{ $artikel->judul }}">
+            </div>
+            <!-- Text Section -->
+            <div class="col-md-8">
+                <p>{!! $artikel->konten !!}</p>
             </div>
         </div>
-    </section>
 
-    <!-- Inline JavaScript -->
-    <script src="{{ asset('js/category.js') }}"></script>
+        <!-- Comment Section -->
+        <div class="mt-4">
+            <div id="disqus_thread"></div>
+            <script>
+                var disqus_config = function () {
+                    this.page.url = "{{ url()->current() }}";  // URL dinamis halaman detail artikel
+                    this.page.identifier = "{{ $artikel->id }}"; // Identifier unik artikel (bisa slug atau ID)
+                };
+
+                (function() { // DON'T EDIT BELOW THIS LINE
+                    var d = document, s = d.createElement('script');
+                    s.src = 'https://' + "{{ env('DISQUS_SHORTNAME') }}" + '.disqus.com/embed.js'; // Ganti 'home-event' dengan shortname Anda
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        </div>
+        <a href="{{ route('category') }}" class="text-primary text-decoration-none d-block text-end mt-4">Back</a>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    </script>
 </body>
 
 </html>

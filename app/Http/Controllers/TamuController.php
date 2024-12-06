@@ -19,7 +19,8 @@ class TamuController extends Controller
     {
         $user = User::all();
         $acara = Acara::orderBy('created_at', 'desc')->take(3)->get();
-        return view('home', compact('user','acara'));
+        $kategori = Kategori::all();
+        return view('home', compact('user','acara','kategori'));
     }
     public function dashboard()
     {

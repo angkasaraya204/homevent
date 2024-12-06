@@ -4,81 +4,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@yield('title')</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/category.css') }}">
-    <!-- fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=bookmark" />
+    <title>Kategori</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <!-- Header with Centered Navigation -->
-    <header class="header">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-transparent text-center">
         @include('partials.navbar')
-    </header>
+    </nav>
 
-    <!-- Hero Section -->
-    <section class="category">
-        <div class="container">
-            <div class="title title-acara">Acara</div>
-            <div class="title title-category">Category</div>
-            <div class="flex-container">
-                @foreach ($acara as $acr)
-                    @if ($acr->status == 'approved')
-                        @php
-                            // Memeriksa apakah acara sudah di-bookmark oleh pengguna
-                            $isBookmarked = $acr->bookmarks()->where('user_id', Auth::id())->exists();
-                        @endphp
-                        <div class="event-card" style="width: 587px;">
-                            <div class="event-date">{{ $acr->tanggal }}
-                                @if (Auth::check() && Auth::user()->role === 'tamu') <!-- Cek jika pengguna sudah login -->
-                                <form action="{{ route('bookmark.tambah', ['acaraId' => $acr->id]) }}" method="POST" style="display:inline;">
-                                    @csrf
-                                    <button type="submit" style="border: none; background: none; cursor: pointer;">
-                                        <span class="material-symbols-outlined" style="color: {{ $isBookmarked ? 'black' : 'white' }};">
-                                            bookmark
-                                        </span>
-                                    </button>
-                                </form>
-                                @endif
-                            </div>
-                            <div class="event-title">{{ $acr->genre }} {{ $acr->nama }}</div>
-                            <div class="event-time">{{ $acr->deskripsi }}
-                            </div>
-                            <div class="event-location">{{ $acr->tempat }}</div>
-                        </div>
-                    @endif
-                @endforeach
-            </div>
-            <div class="image-container">
+    <!-- Content -->
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Category Section -->
+            <div class="col-md-7">
+                <h2 class="fw-bold text-dark mb-4 text-center">Category</h2>
                 @if($artikels->isEmpty())
-                    <h1>Tidak ada artikel untuk kategori ini.</h1>
+                <h3>Tidak ada artikel untuk kategori ini.</h3>
                 @else
-                    <ul>
-                        @foreach($artikels as $artikel)
-                            <li>
-                                <img src="{{ asset('img/'. $artikel->gambar) }}" style="width: 50%;">
-                                <p>Kategori: {{ $artikel->kategori->nama }}</p>
-                                <a href="{{ route('artikel.detail', $artikel->id) }}">
-                                    <h1>{{ $artikel->judul }}</h1>
+                @foreach($artikels as $artikel)
+                <div class="card mb-4" style="border: none;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="{{ asset('img/'. $artikel->gambar) }}" class="rounded-start" style="width: 16rem;" alt="{{ $artikel->kategori->nama }}">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $artikel->kategori->nama }}</h5>
+                                <a href="{{ route('artikel.detail', $artikel->id) }}" style="text-decoration: none; color:black;">
+                                    <h5 class="card-title">{{ $artikel->judul }}</h5>
                                 </a>
-                                <p>Deskripsi: {!! Str::limit($artikel->konten, 100) !!}</p>
-                                <p>Penulis: {{ $artikel->penulis }}</p>
-                                <p>Tanggal: {{ $artikel->tanggal }}</p>
-                            </li>
-                        @endforeach
-                    </ul>
+                                <p class="card-text">{!! Str::limit($artikel->konten, 100) !!}</p>
+                                <div class="d-flex justify-content-between">
+                                    <p class="card-text">{{ $artikel->penulis }}</p>
+                                    <p class="card-text">{{ $artikel->tanggal }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
                 @endif
             </div>
-        </div>
-    </section>
 
-    <!-- Inline JavaScript -->
-    <script src="{{ asset('js/category.js') }}"></script>
+            <!-- Acara Section -->
+            <div class="col-md-5">
+                <h2 class="fw-bold text-dark mb-4">Acara</h2>
+                @foreach ($acara as $acr)
+                @if ($acr->status == 'approved')
+                @php
+                // Memeriksa apakah acara sudah di-bookmark oleh pengguna
+                $isBookmarked = $acr->bookmarks()->where('user_id', Auth::id())->exists();
+                @endphp
+                <div class="card bg-primary text-white mb-3">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <span><i class="fas fa-calendar-alt"></i> {{ $acr->tanggal }}</span>
+                            @if (Auth::check() && Auth::user()->role === 'tamu')
+                            <!-- Cek jika pengguna sudah login -->
+                            <form action="{{ route('bookmark.tambah', ['acaraId' => $acr->id]) }}" method="POST"
+                                style="display:inline;">
+                                @csrf
+                                <button type="submit" style="border: none; background: none; cursor: pointer;">
+                                    @if ($isBookmarked)
+                                    <i class="fa-regular fa-bookmark" aria-hidden="true" style="color: white;"></i>
+                                    @else
+                                    <i class="fa-solid fa-bookmark" aria-hidden="true" style="color: white;"></i>
+                                    @endif
+                            </form>
+                            @endif
+                        </div>
+                        <p class="mt-2">{{ $acr->genre }} {{ $acr->nama }}</p>
+                        <div class="d-flex mt-2 justify-content-between">
+                            <p>{{ Str::limit($acr->deskripsi, 50) }}</p>
+                            <p>{{ $acr->tempat }}</p>
+                        </div>
+                    </div>
+                </div>
+                @endif
+                @endforeach
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>

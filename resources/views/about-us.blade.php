@@ -5,33 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@yield('title')</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/aboutus.css') }}">
-    <!-- fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
+    <title>Tentang Kami</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <!-- Header with Centered Navigation -->
-    <header class="header">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-transparent text-center">
         @include('partials.navbar')
-    </header>
+    </nav>
 
-    <section class="aboutus">
-        <div class="home-event">Home Event</div>
-        <div class="about-us">About Us</div>
-        <div class="our-logo">Our Logo</div>
-        <div class="home-event-description">
+    <!-- About Us Section -->
+    <div class="container my-5">
+        <h1 class="text-primary fw-bold text-center mb-3">Home Event</h1>
+        <h4 class="text-primary fw-bold mb-3">About Us</h4>
+        <p class="text-muted">
             {{ $tentang->deskripsi }}
-        </div>
-        <img class="image" src="{{ asset('img/'. $tentang->logo) }}" alt="Placeholder Image" />
-    </section>
+        </p>
+    </div>
 
+    <!-- Logo Section -->
+    <div class="text-center my-5">
+        <h3 class="text-primary fw-bold">Our Logo</h3>
+        <img src="{{ asset('img/'. $tentang->logo) }}" alt="Logo" class="img-fluid rounded my-3" style="width: 200px; height: 200px;">
+    </div>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 </body>
 
 </html>
