@@ -1,0 +1,531 @@
+/* Color Palette */
+:root {
+    --planetary: #334EAC;
+    --venus: #BAD6EB;
+    --universe: #7096D1;
+    --meteor: #F7F2EB;
+    --galaxy: #081F5C;
+    --milky-way: #FFF9F0;
+    --sky: #D0E3FF;
+    --milky-way-rgb: 255, 249, 240;
+
+    /* equivalent to #FFF9F0
+  }
+  
+  /* Global Styles */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        color: var(--galaxy);
+        background-color: var(--milky-way);
+        line-height: 1.6;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    /* Header and Navbar */
+    .header {
+        background-color: rgba(var(--milky-way-rgb), 0.1);
+        /* Background color for the header */
+        position: fixed;
+        /* Make the header fixed to the top */
+        top: 0;
+        left: 0;
+        width: 100%;
+        /* Full width */
+        z-index: 100;
+        /* Ensure it stays above other content */
+        padding: 1rem 0;
+        display: flex;
+        justify-content: center;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        /* Optional shadow for better separation */
+    }
+
+    .navbar {
+        display: flex;
+        justify-content: space-between; /* Changed to space-between to align items on both ends */
+        align-items: center;
+    }
+    
+    .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 1.5rem;
+    }
+    
+    .nav-links a {
+        font-family: 'Poppins', cursive;
+        font-weight: bolder;
+        color: black;
+        padding: 0.5rem 1rem;
+        border: 2px solid transparent;
+        border-radius: 8px;
+        transition: all 0.3s;
+    }
+    
+    .nav-links a:hover {
+        border-color: var(--venus);
+        color: var(--venus);
+    }
+    
+    /* Active link style */
+    .nav-links a.active {
+        border-color: black;
+        color: black;
+        background-color: rgba(var(--milky-way-rgb), 0.1);
+        border-radius: 8px;
+    }
+    
+    .user-info {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem; /* Space between profile image and username */
+        position: absolute; /* Use absolute positioning */
+        right: 10px; /* Adjust right position to make it flush with the right edge */
+    }
+    
+    .profile-image {
+        margin-top: 10px;
+        border-radius: 50%; /* Makes the image circular */
+    }
+    
+    .username {
+        font-family: 'Poppins', cursive;
+        font-weight: bold;
+        color: black; /* Adjust color as needed */
+    }
+
+    .dropdown {
+        position: relative; /* Position relative for absolute positioning of dropdown menu */
+    }
+    
+    .dropdown-toggle {
+        background: none; /* Remove default button styling */
+        border: none; /* Remove border */
+        cursor: pointer; /* Change cursor to pointer */
+        font-size: 14px; /* Adjust size as needed */
+    }
+    
+    .dropdown-menu {
+        display: none; /* Hide dropdown by default */
+        position: absolute; /* Position the dropdown menu */
+        top: 100%; /* Position it below the toggle button */
+        right: 0; /* Align it to the right */
+        background-color: white; /* Background color for dropdown */
+        border: 1px solid #ccc; /* Border for dropdown */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Optional shadow */
+        z-index: 1000; /* Ensure it appears above other elements */
+    }
+    
+    .dropdown:hover .dropdown-menu {
+        display: block; /* Show dropdown on hover */
+    }
+    
+    .dropdown-item {
+        display: block; /* Make links block elements */
+        padding: 10px; /* Padding for dropdown items */
+        text-decoration: none; /* Remove underline */
+        color: black; /* Text color */
+    }
+    
+    .dropdown-item:hover {
+        background-color: #f0f0f0; /* Change background on hover */
+    }
+
+    /* Hero Section with Background Image */
+    /* Hero Section with Background Image */
+    /* Hero Section with Background Image */
+    .hero {
+        background-image: url('../img/background.jpg');
+        /* Replace with your actual background image path */
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 3rem 1rem;
+        text-align: center;
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        /* Ensures the ::after gradient doesn't overflow */
+    }
+
+    /* Title */
+    .hero-content h1 {
+        font-family: 'La Belle Aurore', cursive;
+        font-size: 8rem;
+        /* Adjust font size as needed */
+        font-weight: bold;
+        color: var(--galaxy);
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        margin-bottom: 0.2rem;
+        /* Keep subtitle close */
+        margin-top: 0;
+        /* Remove extra top margin if there's any */
+    }
+
+    /* Subtitle */
+    .hero-content p {
+        font-family: 'Poppins';
+        font-size: 1.5rem;
+        color: black;
+        font-weight: bold;
+        margin-top: 0.1rem;
+        /* Minimal spacing above subtitle */
+        margin-bottom: 1rem;
+        /* Reduce bottom margin to bring search bar closer */
+    }
+
+    /* Search Bar */
+    .search-bar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        max-width: 600px;
+        margin: 1rem auto 0;
+        /* Reduce top margin to bring it closer to subtitle */
+        padding: 0.5rem;
+        background-color: var(--meteor);
+        border-radius: 25px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-bar input[type="text"] {
+        font-family: 'Poppins';
+        flex: 1;
+        border: none;
+        padding: 0.75rem;
+        border-radius: 25px 0 0 25px;
+        font-size: 1rem;
+    }
+
+    .search-bar button {
+        background-color: var(--galaxy);
+        border: none;
+        padding: 0.75rem 1rem;
+        border-radius: 0 25px 25px 0;
+        cursor: pointer;
+    }
+
+    .search-bar button img {
+        width: 20px;
+        height: 20px;
+        filter: invert(1);
+        /* Makes the search icon white */
+    }
+
+    /* Overlay gradient transition effect */
+    .hero::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 150px;
+        /* Adjust height for desired fade effect */
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--milky-way));
+        z-index: 1;
+        pointer-events: none;
+        /* Ensures the overlay doesn’t block interaction with elements below */
+    }
+
+    /* Our Event Section */
+    .our-event {
+        padding: 4rem 1rem;
+        text-align: center;
+        background-color: var(--milky-way);
+        /* Light background */
+    }
+
+    .our-event h2 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 2.5rem;
+        color: var(--galaxy);
+        font-weight: bold;
+        margin-bottom: 2rem;
+    }
+
+    /* Event Gallery */
+    .event-gallery {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 2rem;
+    }
+
+    /* Event Card Styling */
+    .event-card {
+        width: 200px;
+        text-align: center;
+        position: relative;
+        /* Needed to position the popup */
+        font-family: 'Poppins', sans-serif;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .event-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+
+    /* Event Cards with Hover Effect */
+    .event-card {
+        width: 200px;
+        /* Adjust width as needed */
+        text-align: center;
+        font-family: 'Poppins', sans-serif;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        /* Smooth transition for scaling */
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        /* Default shadow */
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .event-card:hover {
+        transform: scale(1.05);
+        /* Slight zoom effect */
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+        /* Enhanced shadow on hover */
+    }
+
+    .event-card img {
+        width: 100%;
+        height: auto;
+        display: block;
+        /* Ensures full-width image inside card */
+    }
+
+    .event-card p {
+        margin-top: 0.5rem;
+        font-weight: bold;
+        font-size: 1.2rem;
+        color: var(--galaxy);
+    }
+
+
+    /* Latest Event Section */
+    .latest-event {
+        background-color: var(--galaxy);
+        /* Dark blue background */
+        color: white;
+        padding: 4rem 1rem;
+        text-align: center;
+    }
+
+    .latest-event h2 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 2.5rem;
+        color: white;
+        font-weight: bold;
+        margin-bottom: 2rem;
+    }
+
+    /* Event List Styling */
+    .event-list {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        align-items: center;
+    }
+
+    /* Event Item Styling */
+    .event-item {
+        display: flex;
+        align-items: flex-start;
+        /* Align items at the start to avoid vertical centering */
+        background-color: #f7f2eb;
+        /* Light background for event card */
+        color: var(--galaxy);
+        /* Dark text color for contrast */
+        border-radius: 20px;
+        box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15);
+        max-width: 900px;
+        width: 100%;
+        padding: 1.5rem 2rem;
+        border: 4px solid var(--galaxy);
+        /* Enhanced dark blue border */
+        overflow: hidden;
+    }
+
+    /* Image Styling */
+    .event-item img {
+        align-self: center;
+        width: 250px;
+        height: 175px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-right: 1.5rem;
+    }
+
+    /* Event Content - Align text to start */
+    .event-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        text-align: left;
+        /* Align text to the left */
+    }
+
+    .event-content h3 {
+        font-size: 1.8rem;
+        font-weight: bold;
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        color: var(--galaxy);
+        /* Match text color to design */
+    }
+
+    .event-meta {
+        font-size: 0.95rem;
+        color: #666;
+        /* Subtle grey color for metadata */
+        margin-top: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .event-content p {
+        font-size: 1rem;
+        line-height: 1.6;
+        margin: 0.5rem 0;
+        color: var(--galaxy);
+        /* Ensure paragraph color aligns with theme */
+    }
+
+    .event-content a {
+        color: var(--galaxy);
+        font-weight: bold;
+        text-decoration: none;
+        margin-top: 1rem;
+    }
+
+    .event-content a:hover {
+        text-decoration: underline;
+    }
+
+    /* Temukan Kami Section */
+
+    .temukan-kami {
+        background-color: #fff;
+        color: var(--galaxy);
+        padding: 3rem 1rem;
+        text-align: center;
+    }
+
+    .temukan-kami h2 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 2.5rem;
+        color: var(--galaxy);
+        font-weight: bold;
+        margin-bottom: 2rem;
+        text-align: left;
+        padding-left: 2rem;
+    }
+
+    /* Testimonial Container */
+    .testimonial-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        position: relative;
+        max-width: 1200px;
+        /* Increased width to allow more space */
+        margin: 0 auto;
+    }
+
+    /* Arrow Styling */
+    .arrow {
+        cursor: pointer;
+        font-size: 2.5rem;
+        /* Increased font size for arrows */
+        color: var(--galaxy);
+    }
+
+    .left-arrow {
+        margin-right: 1.5rem;
+    }
+
+    .right-arrow {
+        margin-left: 1.5rem;
+    }
+
+    /* Testimonial Box */
+    .testimonial-box {
+        background-color: var(--galaxy);
+        color: white;
+        padding: 2rem 3rem;
+        /* Increased padding for a larger box */
+        border-radius: 20px;
+        max-width: 800px;
+        /* Increased max width */
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+    }
+
+    .quote {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.2rem;
+        /* Slightly larger font size */
+        line-height: 1.6;
+        text-align: left;
+        max-width: 500px;
+        /* Adjusted width to better fit text */
+    }
+
+    .quote-mark {
+        font-size: 2.5rem;
+        /* Larger quote marks */
+        font-weight: bold;
+        margin: 0 0.5rem;
+    }
+
+    /* Profile Section */
+    .profile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .profile-image {
+        width: 80px;
+        /* Larger profile image */
+        height: 80px;
+        border-radius: 50%;
+        background-color: var(--venus);
+        /* Placeholder color for profile image */
+        margin-bottom: 0.5rem;
+    }
+
+    .profile-name {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: white;
+        margin: 0;
+    }
+
+    .profile-location {
+        font-size: 0.9rem;
+        color: #ccc;
+        margin: 0;
+    }
+}
