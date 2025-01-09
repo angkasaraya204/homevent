@@ -41,9 +41,9 @@
                                 @csrf
                                 <button type="submit" style="border: none; background: none; cursor: pointer;">
                                     @if ($isBookmarked)
-                                    <i class="fa-regular fa-bookmark" aria-hidden="true" style="color: white;"></i>
-                                    @else
                                     <i class="fa-solid fa-bookmark" aria-hidden="true" style="color: white;"></i>
+                                    @else
+                                    <i class="fa-regular fa-bookmark" aria-hidden="true" style="color: white;"></i>
                                     @endif
                             </form>
                             @endif
