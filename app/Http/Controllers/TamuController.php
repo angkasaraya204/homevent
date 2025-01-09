@@ -15,11 +15,19 @@ class TamuController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = User::all();
-        $acara = Acara::with('kategori')->orderBy('created_at', 'desc')->take(3)->get();
         $kategori = Kategori::all();
+        
+        $query = $request->input('search');
+        $acara = Acara::with('kategori')
+        ->when($query, function ($q) use ($query) {
+            $q->where('nama', 'like', '%' . $query . '%')
+            ->orWhere('deskripsi', 'like', '%' . $query . '%');
+        })
+        ->orderBy('created_at', 'desc')
+        ->paginate(5);
         return view('home', compact('user','acara','kategori'));
     }
     public function dashboard()

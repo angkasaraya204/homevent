@@ -43,7 +43,7 @@
         <h1 class="display-6 fw-normal text-center">Latest Event</h1>
     </div>
     <div class="container">
-        @foreach ($acara as $acr)
+        @forelse ($acara as $acr)
         <div class="card mb-3">
             <div class="row g-0">
                 <div class="col-md-4">
@@ -61,7 +61,9 @@
                 </div>
             </div>
         </div>
-        @endforeach
+        @empty
+            <p class="text-center text-light">Tidak ada acara yang anda cari.</p>
+        @endforelse
     </div>
 </div>
 @endsection
