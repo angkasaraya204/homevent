@@ -14,16 +14,16 @@
                 <div class="card mb-4" style="border: none;">
                     <div class="row g-0">
                         <div class="col-md-4">
-                            <img src="{{ asset('img/'. $artikel->gambar) }}" class="rounded mx-auto d-block" style="width: 8rem;" alt="{{ $artikel->kategori->nama }}">
+                            <img src="{{ asset('img/'. $artikel->gambar) }}" class="img-fluid rounded-start" alt="{{ $artikel->kategori->nama }}">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <h5 class="card-title">{{ $artikel->kategori->nama }}</h5>
+                                <h5 class="card-title mb-4">{{ $artikel->kategori->nama }}</h5>
                                 <a href="{{ route('artikel.detail', ['nama' => $artikel->kategori->nama, 'slug' => $artikel->slug]) }}" style="text-decoration: none; color:black;">
                                     <h5 class="card-title">{{ $artikel->judul }}</h5>
                                 </a>
-                                <p class="card-text">{!! Str::limit($artikel->konten, 100) !!}</p>
-                                <div class="d-flex justify-content-between">
+                                <p class="card-text mt-4">{!! Str::limit($artikel->konten, 100) !!}</p>
+                                <div class="d-flex justify-content-between mt-4">
                                     <p class="card-text">{{ $artikel->penulis }}</p>
                                     <p class="card-text">{{ $artikel->tanggal }}</p>
                                 </div>
